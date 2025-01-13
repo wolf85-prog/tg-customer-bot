@@ -27,8 +27,32 @@ const Conversation = sequelize.define('conversation', {
 })
 
 
+const Client = sequelize.define('client', {
+    id: {type: DataTypes.INTEGER, primaryKey: true, autoIncrement: true},
+    userfamily: {type: DataTypes.STRING},
+    username: {type: DataTypes.STRING},
+    phone: {type: DataTypes.STRING},
+    dateborn: {type: DataTypes.STRING},  
+    city: {type: DataTypes.STRING},
+    companys: {type: DataTypes.STRING},
+    stag: {type: DataTypes.STRING},
+    worklist: {type: DataTypes.STRING},
+    chatId: {type: DataTypes.STRING, unique: true},
+    promoId: {type: DataTypes.STRING},
+    from: {type: DataTypes.STRING},
+    avatar: {type: DataTypes.STRING},
+    comment: {type: DataTypes.TEXT}, 
+    rank: {type: DataTypes.INTEGER}, 
+    block: {type: DataTypes.BOOLEAN},
+    deleted: {type: DataTypes.BOOLEAN},
+    newcity: {type: DataTypes.STRING},
+    great: {type: DataTypes.BOOLEAN},
+})
+
+
 module.exports = {
     UserBot, 
     Message, 
     Conversation, 
+    Client,
 }
