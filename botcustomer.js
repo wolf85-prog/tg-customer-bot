@@ -13,6 +13,10 @@ const { Op } = require('sequelize')
 
 const token = process.env.TELEGRAM_API_TOKEN
 
+//функции
+const sendMyMessage = require('./bot/common/sendMyMessage')
+const sendMessageAdmin = require('./bot/common/sendMessageAdmin')
+
 const botsupport = new TelegramBot(token, {polling: true});
 const app = express();
 
@@ -89,23 +93,6 @@ botsupport.on('message', async (msg) => {
 
             // Специалист успешно создан
             } else if (text.startsWith('Данные успешно добавлены!')) {           
-                
-
-                //отправить сообщение в админ-панель
-                const convId = await sendMyMessage('Твоя ставка отправлена', "text", chatId)
-
-                // Подключаемся к серверу socket
-                let socket = io(socketUrl);
-                socket.emit("addUser", chatId)
-                socket.emit("sendMessageSpec", {
-                    senderId: chatId,
-                    receiverId: chatTelegramId,
-                    text: 'Твоя ставка отправлена',
-                    type: 'text',
-                    convId: convId,
-                    messageId: messageId,
-                    isBot: true,
-                })
             
             } else {
 //----------------------------------------------------------------------------------------------------------------
@@ -175,42 +162,7 @@ botsupport.on('message', async (msg) => {
                         hello = 'Доброй ночи'
                     } else {
                         hello = 'Добрый вечер' //18-0
-                    }
-
-                    // const nameNotion = await getWorkerNotion(chatId)
-
-                    // //ответ бота
-                    // //console.log(`${hello}, ${firstname}`)
-                    // let hello_text = ''
-                    // if (nameNotion) {
-                    //     if (nameNotion[0].fio.indexOf(' ') === -1)  {
-                    //         hello_text = `${hello}, ${nameNotion[0].fio}.`
-                    //     } else {
-                    //         hello_text = `${hello}, ${nameNotion[0].fio.split(' ')[1]}.`
-                    //     }
-                        
-                    // } else {
-                    //     hello_text = `${hello}.`
-                        
-                    // }
-                    
-                    // const res = await bot.sendMessage(chatId, hello_text)
-
-                    // setTimeout(async()=> {
-                    //     // сохранить отправленное боту сообщение пользователя в БД
-                    //     const convId = await sendMessageAdmin(hello_text, 'text', chatId, res.message_id, null, false)
-
-                    //     socket.emit("sendAdminSpec", {
-                    //         senderId: chatTelegramId,
-                    //         receiverId: chatId,
-                    //         text: hello_text,
-                    //         type: 'text',
-                    //         convId: convId,
-                    //         messageId: res.message_id,
-                    //         isBot: false,
-                    //     })
-                    // }, 3000)
-                    
+                    }                    
                         
                 }
 
