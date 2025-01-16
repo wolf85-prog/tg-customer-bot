@@ -190,6 +190,7 @@ botsupport.on('message', async (msg) => {
                     convId: convId,
                     messageId: messageId,
                     replyId: reply_id,
+                    isBot: null,
                 })
             
 
