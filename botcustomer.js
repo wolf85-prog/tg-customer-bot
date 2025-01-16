@@ -115,23 +115,23 @@ botsupport.on('message', async (msg) => {
                     });
                 }
 
-                //добавление пользователя в БД WORKERS
-                // const userW = await Client.findOne({where:{chatId: chatId.toString()}})
-                // if (!userW) {
-                //     await Client.create({ 
-                //         fio: lastname + ' ' + firstname, 
-                //         chatId: chatId, 
-                //         specialization: JSON.stringify([{
-                //             spec: 'Вне категории',
-                //             cat: 'NoTag'
-                //         }]),
-                //         promoId: 0,
-                //         avatar: ''
-                //     })
-                //     console.log('Пользователь добавлен в БД Workers')
-                // } else {
-                //     console.log('Отмена операции! Пользователь уже существует в Workers')
-                // }
+                //добавление пользователя в БД Clients
+                const userW = await Client.findOne({where:{chatId: chatId.toString()}})
+                if (!userW) {
+                    await Client.create({ 
+                        fio: lastname + ' ' + firstname, 
+                        chatId: chatId, 
+                        specialization: JSON.stringify([{
+                            spec: 'Вне категории',
+                            cat: 'NoTag'
+                        }]),
+                        promoId: 0,
+                        avatar: ''
+                    })
+                    console.log('Пользователь добавлен в БД Clients')
+                } else {
+                    console.log('Отмена операции! Пользователь уже существует в Workers')
+                }
 
                 //приветствие
                 let hello = ''
